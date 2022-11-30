@@ -60,9 +60,9 @@ module.exports = {
     // Get All Books
     getBooksFromLib: (req, h) => {
         const { name, reading, finished } = req.query;
-        let result = [];
+        const result = [];
         if (name) {
-            const books = library.filter(book => book.name.toLowerCase() === name.toLowerCase())
+            const books = library.filter((book) => book.name.toLowerCase() === name.toLowerCase());
             books.map((book) => result.push({
                 id: book.id,
                 name: book.name,
@@ -70,14 +70,14 @@ module.exports = {
             }));
         } else if (reading) {
             if (reading == 1) {
-                const books = library.filter(book => book.reading == 1)
+                const books = library.filter((book) => book.reading == 1);
                 books.map((book) => result.push({
                     id: book.id,
                     name: book.name,
                     publisher: book.publisher,
                 }));
             } else if (reading == 0) {
-                const books = library.filter(book => book.reading == 0)
+                const books = library.filter((book) => book.reading == 0);
                 books.map((book) => result.push({
                     id: book.id,
                     name: book.name,
@@ -86,14 +86,14 @@ module.exports = {
             }
         } else if (finished) {
             if (finished == 1) {
-                const books = library.filter(book => book.finished == 1)
+                const books = library.filter((book) => book.finished == 1);
                 books.map((book) => result.push({
                     id: book.id,
                     name: book.name,
                     publisher: book.publisher,
                 }));
             } else if (finished == 0) {
-                const books = library.filter(book => book.finished == 0)
+                const books = library.filter((book) => book.finished == 0);
                 books.map((book) => result.push({
                     id: book.id,
                     name: book.name,
@@ -134,6 +134,7 @@ module.exports = {
             publisher,
             pageCount,
             readPage,
+            reading,
         } = req.payload;
         const i = library.findIndex((book) => book.id === bookId);
         if (!name) return updateBookFail.missingName(h);
@@ -153,7 +154,7 @@ module.exports = {
             pageCount: pageCount ?? book.pageCount,
             readPage: readPage ?? book.readPage,
             finished: pageCount === readPage,
-            reading: reading?? book.reading,
+            reading: reading ?? book.reading,
             insertedAt: book.insertedAt,
             updateAt,
         };
