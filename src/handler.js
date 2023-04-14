@@ -5,10 +5,10 @@ const {
     addBookSuccess,
     getBookByIdFail,
     getBookByIdSuccess,
-    updateBookFail,
-    updateBookSuccess,
-    deleteBookFail,
-    deleteBookSuccess,
+    updatedBookFail,
+    updatedBookSuccess,
+    deletedBookFail,
+    deletedBookSuccess,
 } = require('./response');
 
 module.exports = {
@@ -28,7 +28,7 @@ module.exports = {
         const id = nanoid(16);
         const finished = pageCount === readPage;
         const insertedAt = new Date().toISOString();
-        const updateAt = insertedAt;
+        const updatedAt = insertedAt;
             
         try {
             if (!name) return addBookFail.missingName(h);
@@ -46,7 +46,7 @@ module.exports = {
                 finished,
                 reading,
                 insertedAt,
-                updateAt,
+                updatedAt,
             });
             return addBookSuccess(id, h);
         } catch (err) {
@@ -124,7 +124,7 @@ module.exports = {
     },
         
     // Update Book By Id
-    updateBook: (req, h) => {
+    updatedBook: (req, h) => {
         const { bookId } = req.params;
         const {
             name,
@@ -137,11 +137,11 @@ module.exports = {
             reading,
         } = req.payload;
         const i = library.findIndex((book) => book.id === bookId);
-        if (!name) return updateBookFail.missingName(h);
-        if (readPage > pageCount) return updateBookFail.readMoreThanPageCount(h);
-        if (i < 0) return updateBookFail.bookNotFound(h);
+        if (!name) return updatedBookFail.missingName(h);
+        if (readPage > pageCount) return updatedBookFail.readMoreThanPageCount(h);
+        if (i < 0) return updatedBookFail.bookNotFound(h);
         
-        const updateAt = new Date().toISOString();
+        const updatedAt = new Date().toISOString();
         
         const book = { ...library[i] };
         library[i] = {
@@ -156,16 +156,16 @@ module.exports = {
             finished: pageCount === readPage,
             reading: reading ?? book.reading,
             insertedAt: book.insertedAt,
-            updateAt,
+            updatedAt,
         };
-        return updateBookSuccess(h);
+        return updatedBookSuccess(h);
     },
     // Delete Book By Id
-    deleteBook: (req, h) => {
+    deletedBook: (req, h) => {
         const { bookId } = req.params;
         const i = library.findIndex((book) => book.id === bookId);
-        if (i < 0) return deleteBookFail(h);
+        if (i < 0) return deletedBookFail(h);
         library.splice(i, 1);
-        return deleteBookSuccess(h);
+        return deletedBookSuccess(h);
     },
 };

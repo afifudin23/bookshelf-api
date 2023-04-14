@@ -27,11 +27,11 @@ module.exports = {
     }).code(404),
     getBookByIdSuccess: (book, h) => h.response({
         status: 'success',
-        data: book,
+        data: { book },
     }).code(200),
     
     // Response Update Book By Id
-    updateBookFail: {
+    updatedBookFail: {
         missingName: (h) => h.response({
             status: 'fail',
             message: 'Gagal memperbarui buku. Mohon isi nama buku',
@@ -45,17 +45,17 @@ module.exports = {
             message: 'Gagal memperbarui buku. Id tidak ditemukan',
         }).code(404),
     },
-    updateBookSuccess: (h) => h.response({
+    updatedBookSuccess: (h) => h.response({
         status: 'success',
         message: 'Buku berhasil diperbarui',
     }).code(200),
     
     // Response Delete Book By Id
-    deleteBookFail: (h) => h.response({
+    deletedBookFail: (h) => h.response({
         status: 'fail',
         message: 'Buku gagal dihapus. Id tidak ditemukan',
     }).code(404),
-    deleteBookSuccess: (h) => h.response({
+    deletedBookSuccess: (h) => h.response({
         status: 'success',
         message: 'Buku berhasil dihapus',
     }).code(200),

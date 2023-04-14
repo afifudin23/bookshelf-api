@@ -2,8 +2,8 @@ const {
     addNewBook,
     getBooksFromLib,
     getBookById,
-    updateBook,
-    deleteBook,
+    updatedBook,
+    deletedBook,
 } = require('./handler');
 
 module.exports = [
@@ -29,12 +29,12 @@ module.exports = [
     {
         method: 'PUT',
         path: '/books/{bookId}',
-        handler: updateBook,
+        handler: updatedBook,
     },
     // Delete Book 
     {
         method: 'DELETE',
         path: '/books/{bookId}',
-        handler: deleteBook,
+        handler: deletedBook,
     },
 ];
